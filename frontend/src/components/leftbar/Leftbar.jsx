@@ -9,7 +9,8 @@ import ContactSupportIcon from "@mui/icons-material/ContactSupport";
 import WorkOutlineIcon from "@mui/icons-material/WorkOutline";
 import EventIcon from "@mui/icons-material/Event";
 import CardMembershipIcon from "@mui/icons-material/CardMembership";
-
+import{Users} from '../dummyData';
+import Friend from "../closeFriend/Friend";
 function Leftbar() {
   return (
     <div className="leftbar">
@@ -55,22 +56,8 @@ function Leftbar() {
         <button className="sidebarButton">Show More</button>
         <hr className="sidebarHr"></hr>
         <ul className="sidebarFriendList">
-          <li className="sidebarFriend">
-            <img className="sidebarFriendImg" src="/assets/person/2.jpeg"></img>
-            <span className="sidebarFriendName">Naishad</span>
-          </li>
-          <li className="sidebarFriend">
-            <img className="sidebarFriendImg" src="/assets/person/2.jpeg"></img>
-            <span className="sidebarFriendName">Naishad</span>
-          </li>
-          <li className="sidebarFriend">
-            <img className="sidebarFriendImg" src="/assets/person/2.jpeg"></img>
-            <span className="sidebarFriendName">Naishad</span>
-          </li>
-          <li className="sidebarFriend">
-            <img className="sidebarFriendImg" src="/assets/person/2.jpeg"></img>
-            <span className="sidebarFriendName">Naishad</span>
-          </li>
+          
+          {Users.map(u=>( <Friend key={u.id} user={u}/>))}
         </ul>
       </div>
     </div>
