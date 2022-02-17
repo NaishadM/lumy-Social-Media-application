@@ -1,13 +1,19 @@
 import { useContext, useRef } from "react";
 import "./login.css";
+import { loginCall}  from "../../apiCalls";
 
-import RefreshRoundedIcon from '@mui/icons-material/RefreshRounded';
-
+import { AuthContext } from "../../context/AuthContext";
+import CircularProgress from '@mui/material/CircularProgress';
 
 export default function Login() {
   const email = useRef();
   const password = useRef();
+  const { isFetching,error,dispatch}=useContext(AuthContext)
+   const handleForm=(e)=>{
+   e.preventDefault();
+   loginCall({email:email.current.value,password:password.current.value},dispatch)
 
+   }
 
   return (
     <div className="login">
@@ -18,8 +24,8 @@ export default function Login() {
             Connect with friends and the world around you on Lumy-social.
           </span>
         </div>
-        <div className="loginRight">
-          <form className="loginBox">
+        <div className="loginRight" >
+          <form className="loginBox" onSubmit={handleForm}>
             <input
               placeholder="Email"
               type="email"
@@ -35,12 +41,13 @@ export default function Login() {
               className="loginInput"
               ref={password}
             />
-            <button className="loginButton" type="submit" >
-              Log In
+            <button className="loginButton" type="submit" disabled={isFetching}>{isFetching?<CircularProgress color="success" size='rem'/>:"Log In"}
+          
             </button>
             <span className="loginForgot">Forgot Password?</span>
-            <button className="loginRegisterButton">
-               Create a New Account
+            <button className="loginRegisterButton" disabled={isFetching}>
+               
+               {isFetching?<CircularProgress color="success" size='rem'/>:"Create a New Account"}
             </button>
           </form>
         </div>

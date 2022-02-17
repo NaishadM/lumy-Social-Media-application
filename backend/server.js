@@ -22,7 +22,7 @@ app.get("/",(req,res)=>{res.send("welcome to home page")})
 app.use("/api/users",userRoute);
 app.use("/api/auth",authRoute);
 app.use("/api/posts",postRoute);
-//running server on 8080
+//running server on 5000
 app.listen(5000, () => {
   console.log("Backend server is running");
 });

@@ -1,28 +1,51 @@
-import React from "react";
+import React,{useContext, useRef, useState} from "react";
 import "./share.css";
-import { PermMediaOutlined,Label,Room,EmojiEmotions } from "@mui/icons-material";
+import { PermMediaOutlined,Label,Room,EmojiEmotions, LineAxisOutlined } from "@mui/icons-material";
+import { AuthContext } from "../../context/AuthContext";
+import axios from 'axios'
 function Share() {
+   const user = useContext(AuthContext).user;
+   const PF=process.env.REACT_APP_PUBLIC_FOLDER;
+   const desc= useRef();
+   const [file,setFile]=useState(null);
+
+   const submitHandler= async(e)=>{
+e.preventDefault()
+const newPost={
+userId:user._id,
+desc:desc.current.value
+}
+try {
+
+await axios.post("/posts",newPost)
+} catch (error) {
+  
+}
+
+   }
   return (
     <div className="share">
       <div className="shareWrapper">
         <div className="shareTop">
           <img
             className="shareProfileImg"
-            src="/assets/person/1.jpeg"
+            src={user.profilePic?PF+user.profilePic:PF+"person/noAvatar.png"}
             alt=""
           ></img>
           <input
             className="shareInput"
-            placeholder="what's in your mind lumy?"
+            placeholder={"what's in your mind "+user.username+"?"}
+            ref={desc}
           ></input>
         </div>
         <hr className="shareHr"></hr>
-        <div className="shareBottom">
+        <form className="shareBottom" onSubmit={submitHandler}>
           <div className="shareOptions">
-            <div className="shareOption">
+            <label htmlFor="file" className="shareOption">
               <PermMediaOutlined htmlColor="tomato" className="shareIcon" />
               <span className="shareOptionText">photo/video</span>
-            </div>
+              <input style={{display:"none"}} type="file" id="file" accept=".png,.jpeg,.jpg" onChange={(e)=>setFile(e.target.files[0])}></input>
+            </label>
             <div className="shareOption">
               <Label htmlColor="blue" className="shareIcon" />
               <span className="shareOptionText">Tag</span>
@@ -37,8 +60,8 @@ function Share() {
             </div>
 
           </div>
-          <button className="shareButton">Share</button>
-        </div>
+          <button className="shareButton" type="submit">Share</button>
+        </form>
       </div>
     </div>
   );
