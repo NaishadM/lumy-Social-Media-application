@@ -15,11 +15,28 @@ const newPost={
 userId:user._id,
 desc:desc.current.value
 }
+if(file){
+  const data=new FormData();
+  const d=new Date();
+  const fileName=d.getDate()+d.getHours()+file.name;
+  data.append("file",file);
+  data.append("name",fileName);
+  newPost.img=fileName
+
+try {
+  await axios.post("/upload",data)
+} catch (error) {
+  console.log(error);
+}
+
+}
+
 try {
 
-await axios.post("/posts",newPost)
+await axios.post("/posts",newPost);
+window.location.reload();
 } catch (error) {
-  
+   
 }
 
    }

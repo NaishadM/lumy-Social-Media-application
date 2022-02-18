@@ -34,12 +34,14 @@ function Profile() {
               <span className="profileInfoDesc">{Users.desc}</span>
             </div>
           </div>
+         
           <div className="profileRightBottom">
+          <Leftbar />
             <Feed username={username} />
             <Rightbar user={Users} />
           </div>
         </div>
-        <Leftbar />
+        
       </div>
     </>
   );
