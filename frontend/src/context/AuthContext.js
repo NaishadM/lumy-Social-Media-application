@@ -8,8 +8,11 @@ user:{
     password:"$2b$10$rA8cn7WW.DI7ZFR3xslVReGrCE/21EtiSBcBcgXcZgzbUhqldBbr.",
     profilePic:"",
     coverPic:"",
-    followers:[],
-    followings:[],
+    followers:["61fc05698a0d985353d883f5","61fc05808a0d985353d883f7"],
+    followings:["61fc05698a0d985353d883f5","61fc05808a0d985353d883f7"],
+    city:"tirupur",
+    relationship:1,
+    from:"tamil nadu"
 },
 isFetching:false,
 error:false

@@ -20,7 +20,7 @@ function Profile() {
     fetchUser();
   }, []);
   return (
-    <>
+    <div>
       <Topbar />
       <div className="Profile">
         <div className="profileRight">
@@ -39,11 +39,12 @@ function Profile() {
           <Leftbar />
             <Feed username={username} />
             <Rightbar user={Users} />
+            
           </div>
         </div>
         
       </div>
-    </>
+    </div>
   );
 }
 

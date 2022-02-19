@@ -1,6 +1,6 @@
 import React,{useContext, useRef, useState} from "react";
 import "./share.css";
-import { PermMediaOutlined,Label,Room,EmojiEmotions, LineAxisOutlined } from "@mui/icons-material";
+import { PermMediaOutlined,Label,Room,EmojiEmotions, LineAxisOutlined, Cancel, CancelOutlined } from "@mui/icons-material";
 import { AuthContext } from "../../context/AuthContext";
 import axios from 'axios'
 function Share() {
@@ -56,6 +56,10 @@ window.location.reload();
           ></input>
         </div>
         <hr className="shareHr"></hr>
+        {file &&( <div className="shareImgContainer">
+        <img className="shareImg" src={URL.createObjectURL(file)} alt=""></img>
+        <CancelOutlined className="shareCancelImage" onClick={()=>setFile(null)}/>
+        </div>)}
         <form className="shareBottom" onSubmit={submitHandler}>
           <div className="shareOptions">
             <label htmlFor="file" className="shareOption">
