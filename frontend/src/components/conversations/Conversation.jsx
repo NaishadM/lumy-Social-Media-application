@@ -1,10 +1,35 @@
+
+import axios from 'axios';
 import React from 'react';
+import { useState } from 'react';
+import { useEffect } from 'react';
 import './conversation.css'
-function Conversation() {
+function Conversation({Conversation,currentUser}) {
+ const [user,setUser]=useState("")
+ const PF=process.env.REACT_APP_PUBLIC_FOLDER
+
+ useEffect(() => {
+  const friendId=Conversation.member.find((m)=>m!==currentUser._id);
+
+  const getUser = async ()=>{
+    try {
+      const res= await axios("/users?userId="+friendId);
+    
+      setUser(res.data)
+    } catch (error) {
+      console.log(error);
+
+    }
+
+
+  }
+  getUser();
+ }, [currentUser,Conversation]);
+
   return (
     <div className='conversation'>
-      <img className='conImage' src='https://static.remove.bg/remove-bg-web/bf16d3e558914c4f5e6b6bc5163ed745ee2977db/assets/start_remove-c851bdf8d3127a24e2d137a55b1b427378cd17385b01aec6e59d5d4b5f39d2ec.png' alt=''></img>
-      <span className='conName'>naishad</span>
+      <img className='conImage' src={user.profilePic?PF+ user.profilePic:PF+"person/noAvatar.png"} alt=''></img>
+      <span className='conName'>{user.username}</span>
     </div>
   );
 }

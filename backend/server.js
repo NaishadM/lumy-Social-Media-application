@@ -6,9 +6,10 @@ const morgan = require("morgan");
 const userRoute=require('./routes/user');
 const authRoute=require('./routes/auth');
 const postRoute=require('./routes/posts');
+const conversationRoute=require('./routes/conversations');
+const messageRoute=require('./routes/messages');
 const multer=require('multer');
-const path=require("path")
-
+const path=require("path");
 dotenv.config();
 const app = express();
 //mongo connection query
@@ -51,6 +52,8 @@ app.get("/",(req,res)=>{res.send("welcome to home page")})
 app.use("/api/users",userRoute);
 app.use("/api/auth",authRoute);
 app.use("/api/posts",postRoute);
+app.use("/api/conversations",conversationRoute)
+app.use("/api/messages",messageRoute)
 //running server on 5000
 app.listen(5000, () => { 
   console.log("Backend server is running");
