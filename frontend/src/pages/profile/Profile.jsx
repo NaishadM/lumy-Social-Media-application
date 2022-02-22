@@ -19,6 +19,9 @@ function Profile() {
     };
     fetchUser();
   }, []);
+
+  console.log(user)
+  console.log(Users);
   return (
     <div>
       <Topbar />
@@ -26,8 +29,8 @@ function Profile() {
         <div className="profileRight">
           <div className="profileRightTop">
             <div className="profileCover">
-              <img className="profileCoverImg" src={user.coverPic? PF+user.coverPic: PF+"person/noCover.png"}></img>
-              <img className="profileUserImg" src={user.coverPic? PF+user.profilePic: PF+"person/noAvatar.png"}></img>
+              <img className="profileCoverImg" src={Users.coverPic? PF+ Users.coverPic: PF+"person/noCover.png"}></img>
+              <img className="profileUserImg" src={Users.profilePic? PF+ Users.profilePic: PF+"person/noAvatar.png"}></img>
             </div>
             <div className="profileInfo">
               <h4 className="profileInfoName">{Users.username}</h4>

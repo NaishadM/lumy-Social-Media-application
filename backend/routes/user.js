@@ -57,7 +57,7 @@ try{
 
 // get friends followers
 router.get("/friends/:userId",async (req,res)=>{
-try {
+try { 
   const user= await User.findById(req.params.userId);
   const friends= await Promise.all(
 

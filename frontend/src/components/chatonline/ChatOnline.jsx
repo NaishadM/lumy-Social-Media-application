@@ -1,43 +1,49 @@
-import React from "react";
+import axios from "axios";
+import React, { useState } from "react";
+import { useEffect } from "react";
 import "./chatonline.css";
-function ChatOnline() {
+function ChatOnline({ onlineUsers, currentUser, setCurrentChat }) {
+  const [friends, setFriends] = useState([]);
+  const [Onlinefriends, setOnlineFriends] = useState([]);
+  const PF = process.env.REACT_APP_PUBLIC_FOLDER;
+  useEffect(() => {
+    const getFriends = async () => {
+      const res = await axios.get("/users/friends/" + currentUser);
+      setFriends(res.data);
+    };
+    getFriends();
+  }, [currentUser]);
+  useEffect(() => {
+    setOnlineFriends(friends.filter((f) => onlineUsers.includes(f._id)));
+  }, [friends, onlineUsers]);
+
+  const handleClick= async(user)=>{
+    try {
+      const res=await axios.get(`/conversations/find/${currentUser}/${user._id}`)
+      setCurrentChat(res.data)
+    } catch (error) {
+      console.log(error);
+    }
+
+  }
+
   return (
     <div className="chatOnline">
-      <div className="chatOnlineFriend">
-        <div className="chatOnlineImgContainer">
-          <img
-            className="chatOnlineImg"
-            src="https://static.remove.bg/remove-bg-web/bf16d3e558914c4f5e6b6bc5163ed745ee2977db/assets/start_remove-c851bdf8d3127a24e2d137a55b1b427378cd17385b01aec6e59d5d4b5f39d2ec.png"
-            alt=""
-         />
+      {Onlinefriends?.map((o) => (
+        <div className="chatOnlineFriend" onClick={()=>handleClick(o)}>
+          <div className="chatOnlineImgContainer">
+            <img
+              className="chatOnlineImg"
+              src={
+                o.profilePic ? PF + o.profilePic : PF + "person/noAvatar.png"
+              }
+              alt=""
+            />
+          </div>
+          <div className="chatOnlineBadge"></div>
+          <span className="chatOnlineName">{o.username}</span>
         </div>
-        <div className="chatOnlineBadge"></div>
-        <span className="chatOnlineName">naishad</span>
-      </div>
-
-      <div className="chatOnlineFriend">
-        <div className="chatOnlineImgContainer">
-          <img
-            className="chatOnlineImg"
-            src="https://static.remove.bg/remove-bg-web/bf16d3e558914c4f5e6b6bc5163ed745ee2977db/assets/start_remove-c851bdf8d3127a24e2d137a55b1b427378cd17385b01aec6e59d5d4b5f39d2ec.png"
-            alt=""
-         />
-        </div>
-        <div className="chatOnlineBadge"></div>
-        <span className="chatOnlineName">naishad</span>
-      </div>
-
-      <div className="chatOnlineFriend">
-        <div className="chatOnlineImgContainer">
-          <img
-            className="chatOnlineImg"
-            src="https://static.remove.bg/remove-bg-web/bf16d3e558914c4f5e6b6bc5163ed745ee2977db/assets/start_remove-c851bdf8d3127a24e2d137a55b1b427378cd17385b01aec6e59d5d4b5f39d2ec.png"
-            alt=""
-         />
-        </div>
-        <div className="chatOnlineBadge"></div>
-        <span className="chatOnlineName">naishad</span>
-      </div>
+      ))}
     </div>
   );
 }
